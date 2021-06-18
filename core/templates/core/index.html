@@ -1,0 +1,140 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+<div>
+  <!-- 
+  <div class="card  col-lg-6 col-md-10 mx-auto mt-5">
+    
+    <div class="card-body text-center">
+      <h4 class="card-title ">Login Twitter</h4>
+      
+      {% if not request.user.is_authenticated %}
+      <a class="btn btn-block btn-social btn-twitter" href="{% url 'social:begin' 'twitter' %}">
+        <span class="fa fa-twitter"></span> Sign in with Twitter
+      </a>
+      
+      {% else %}
+      <p>Hola</p>
+      <h3>@{{request.user}}</h3>
+      <p class="card-text pt-3 text-success">Ya estás registrado<br>Ya puedes seguir con la encuesta</p>
+      
+      {% endif %}
+    </div> 
+  </div>
+  -->
+  <!-- header -->
+  <header>
+    <!-- header inner -->
+    <div class="header_bg">
+      <div class="header">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+              <div class="full">
+                <div class="center-desk">
+                  <div class="logo">
+                    <a href="index.html"><img src="/static/core/images/logoTI.png" style="height: 60px;" alt="#" /></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+              <ul class="costomer">
+                <li><a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Admin</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end header inner -->
+      <!-- end header -->
+      <!-- banner -->
+      <section class="banner_main">
+        <div class="container-fluid">
+          <div class="row d_flex">
+            <div class="col-md-5">
+              <div class="text-bg">
+                <span>Proyecto</span>
+                <h1>Dark Triad Classifier <br> (DTC)</h1>
+                <p>Diseño de un modelo computacional para clasificar los rasgos de la personalidad oscura </p>
+                <a href="#why">Comienza</a>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="text-img">
+                <figure><img src="/static/core/images/img.png" /></figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </header>
+  <!-- weare -->
+  <div id="why" class="weare">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="titlepage">
+            <h2>Esta es una versión interactiva del <br> <span class="white">Inventario de personalidad
+                narcisista</span></h2>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="main_weare">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 my-auto" >
+                <div id="box_ho" class="weare-img_box">
+                  <figure><img src="/static/core/images/n.jpg" alt="#" /></figure>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="weare-box">
+                  <h3>introducción</h3>
+                  <p>Narcisismo en rasgo de personalidad generalmente concebido como amor propio excesivo.
+                    En la mitología griega, Narciso era un hombre que se enamoraba de su reflejo en un charco de agua.
+                    El NPI fue desarrollado por Raskin y Hall (1979) para medir el narcisismo como rasgo de personalidad
+                    en la investigación psicológica social. Se basa en la definición de trastorno de personalidad
+                    narcisista que
+                    se encuentra en el DSM-III, pero no es una herramienta de diagnóstico para NPD y, en cambio,
+                    mide las expresiones subclínicas o normales de narcisismo. Por lo tanto, incluso alguien que obtenga
+                    la puntuación
+                    más alta posible en NPI no necesariamente tiene NPD.
+                  </p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="main_weare2 ">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="weare-box">
+                  <h3>Procedimiento</h3>
+                  <p>La prueba consta de 40 pares de afirmaciones. Para cada par, debe seleccionar el que mejor refleje
+                    su personalidad.
+                    La mayoría de las personas deben completar de cinco a diez minutos.
+                  </p>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="weare-box">
+                  <h3>Participación</h3>
+                  <p>Su uso de est evaluación debe ser estrictamente con fines educativos. No puede tomarse como
+                    consejo psicológico de ningún tipo. Si está interesado en algo más que aprender sobre el narcisismo
+                    y cómo se evalúa, no tome esta prueba. Además, sus respuestas se registrarán de forma anónima
+                    y posiblemente se utilizarán para la investigación o se distribuirán de otro modo.
+                  </p>
+                </div>
+              </div>
+              <a class="read_more bg mx-auto" style="max-width: 20vw;" href="#"><i class="fa fa-twitter" aria-hidden="true"></i> Inicia con Twitter</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end weare -->
+  </div>
+  {% endblock content%}
