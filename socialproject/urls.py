@@ -22,5 +22,6 @@ from core import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+    path('questions/', include('questions.urls')),
     url(r'', include('social_django.urls', namespace='social'))
 ]

@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container">
+<div class="jumbotron jumbotron-fluid" style="background-color: #41c365;">
+    <div class="container">
+      <h1 class="display-4 text-light" >Bienvenido @{{request.user}}</h1>
+      <p>INSTRUCCIÓN: Para cada par de sentencias afirmativas, elija la que más le identifique. Si se identifica con ambas por igual, elija la que cree que es más importante.</p>
+    </div>
+  </div>
+
+  <form method="POST" class="col-6 mx-auto">{% csrf_token %}
+      <div class="card">
+      {% for o in obj %}
+    <div class="pl-5 form-check">
+        <input class="form-check-input" required type="radio" name="exampleRadios{{o.question}}" id="exampleRadios{{o.id}}" value="{{o.value}}" checked>
+        <label class="form-check-label" for="exampleRadios{{o.id}}">
+              {{o.answer}}
+        </label>
+      </div>
+      {% if o.id|divisibleby:"2" %}
+        <hr>
+      {% endif %}
+      {% endfor %}
+      <button type="submit" class="read_more btn bg mx-auto mb-5" href="#">Enviar</button>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}
