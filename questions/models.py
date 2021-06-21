@@ -17,7 +17,12 @@ class QuestionModel(models.Model):
     class Meta():
         pass
 
+    def __str__(self) -> str:
+        return str(self.question)
+
+
 class ResponseModel(models.Model):
+    question = models.ForeignKey(QuestionModel, on_delete=models.CASCADE, null=True)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     value = models.IntegerField()
 
