@@ -6,6 +6,7 @@ from .models import QuestionModel, ResponseModel, ResultModel
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib import auth
+from django.contrib.auth.models import User
 
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -58,7 +59,12 @@ class ResultView(LoginRequiredMixin,ListView):
 
     def get(self,request,*args,**kwargs):
         username = auth.get_user(request)
-        queryset = ResultModel.objects.get(username=username)
-        deg = queryset.total - 20
-        print(queryset)
-        return render(request,self.template_name,{"obj":queryset,"deg":deg})
+    
+        try:
+            queryset = ResultModel.objects.get(username=username)
+            deg = queryset.total - 20
+            return render(request,self.template_name,{"obj":queryset,"deg":deg})
+
+        except ObjectDoesNotExist:
+            
+            return HttpResponseRedirect('/questions/')

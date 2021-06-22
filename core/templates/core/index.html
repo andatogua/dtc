@@ -85,7 +85,7 @@
         <div class="col-md-12">
           <div class="main_weare">
             <div class="row">
-              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 my-auto" >
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 my-auto">
                 <div id="box_ho" class="weare-img_box">
                   <figure><img src="/static/core/images/n.jpg" alt="#" /></figure>
                 </div>
@@ -122,14 +122,13 @@
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="weare-box">
                   <h3>Participación</h3>
-                  <p>Su uso de est evaluación debe ser estrictamente con fines educativos. No puede tomarse como
+                  <p>Su uso de esta evaluación debe ser estrictamente con fines educativos. No puede tomarse como
                     consejo psicológico de ningún tipo. Si está interesado en algo más que aprender sobre el narcisismo
                     y cómo se evalúa, no tome esta prueba. Además, sus respuestas se registrarán de forma anónima
                     y posiblemente se utilizarán para la investigación o se distribuirán de otro modo.
                   </p>
                 </div>
               </div>
-              <a class="read_more bg mx-auto" style="max-width: 300px;" href="{% url 'social:begin' 'twitter' %}"><i class="fa fa-twitter" aria-hidden="true"></i> Inicia con Twitter</a>
             </div>
           </div>
         </div>
@@ -137,4 +136,35 @@
     </div>
     <!-- end weare -->
   </div>
+  <form class=" row text-center needs-validation justify-content-center" style="margin: 20px 0;" novalidate>
+    <div class="col-md-8 col-sm-12">
+
+      <div class="form-check mb-3" >
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required onchange="checkChange(this)">
+        <label class="form-check-label" for="defaultCheck1">
+          Estoy dispuesto a contestar de forma precisa y mis respuestas pueden ser usadas dentro de la investigación.
+        </label>
+        <div class="invalid-feedback">
+          Por favor, acepta los términos y condiciones.
+        </div>
+      </div>
+        
+      <a class="read_more bg mx-auto px-3" style="max-width: 300px;float: initial; opacity: 0.5;" id="ref"
+        href="#"><i class="fa fa-twitter" aria-hidden="true"></i> Inicia con
+        Twitter</a>
+    </div>
+  </form>
+  <script>
+    function checkChange(e){
+      var a = document.getElementById('ref')
+      if(e.checked){
+        a.setAttribute("href","{% url 'social:begin' 'twitter' %}")
+        a.style.opacity = 1
+      }
+      else{
+        a.setAttribute("href","#")
+        a.style.opacity = 0.5
+      }
+    }
+  </script>
   {% endblock content%}
