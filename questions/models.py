@@ -31,3 +31,5 @@ class ResultModel(models.Model):
     date = models.DateTimeField(auto_now=True)
     total = models.IntegerField()
 
+    def __str__(self) -> str:
+        return str(self.username)

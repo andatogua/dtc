@@ -1,0 +1,192 @@
+{% extends 'core/base.html' %}
+{% block style %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        max-width: 99%;
+    }
+
+    .mt-100 {
+        margin-top: 200px
+    }
+
+    .progress {
+        width: 150px;
+        height: 150px !important;
+        float: left;
+        line-height: 150px;
+        background: none;
+        margin: 20px;
+        box-shadow: none;
+        position: relative
+    }
+
+    .progress:after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 12px solid #fff;
+        position: absolute;
+        top: 0;
+        left: 0
+    }
+
+    .progress>span {
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        z-index: 1
+    }
+
+    .progress .progress-left {
+        left: 0
+    }
+
+    .progress .progress-bar {
+        width: 100%;
+        height: 100%;
+        background: none;
+        border-width: 12px;
+        border-style: solid;
+        position: absolute;
+        top: 0
+    }
+
+    .progress .progress-left .progress-bar {
+        left: 100%;
+        border-top-right-radius: 80px;
+        border-bottom-right-radius: 80px;
+        border-left: 0;
+        -webkit-transform-origin: center left;
+        transform-origin: center left
+    }
+
+    .progress .progress-right {
+        right: 0
+    }
+
+    .progress .progress-right .progress-bar {
+        left: -100%;
+        border-top-left-radius: 80px;
+        border-bottom-left-radius: 80px;
+        border-right: 0;
+        -webkit-transform-origin: center right;
+        transform-origin: center right;
+        animation: loading-1 2s linear forwards 1s
+    }
+
+    .progress .progress-value {
+        width: 90%;
+        height: 90%;
+        border-radius: 50%;
+        background: #000;
+        font-size: 24px;
+        color: white;
+        line-height: 135px;
+        text-align: center;
+        position: absolute;
+        top: 5%;
+        left: 5%
+    }
+
+    .progress.green .progress-bar {
+        border-color: #41c365
+    }
+    
+    .progress.green .progress-left .progress-bar {
+        animation: loading-2 1.5s linear forwards 3s
+    }
+
+    .progress.yellow .progress-bar {
+        border-color: #fdba04
+    }
+
+    .progress.yellow .progress-right .progress-bar {
+        animation: loading-3 1.8s linear forwards
+    }
+
+    .progress.yellow .progress-left .progress-bar {
+        animation: none
+    }
+
+    @keyframes loading-1 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+
+        100% {
+            {% if deg < 0 %}
+            -webkit-transform: rotate({% widthratio deg|add:20 20 180 %}deg);
+            transform: rotate({% widthratio deg|add:20 20 180 %}deg)
+            {% else %}
+            -webkit-transform: rotate(180deg);
+            transform: rotate(180deg)
+            {% endif %}
+        }
+    }
+
+    @keyframes loading-2 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+
+        100% {
+            -webkit-transform: rotate({% widthratio deg 20 180 %}deg);
+            transform: rotate({% widthratio deg 20 180 %}deg)
+        }
+    }
+
+    @keyframes loading-3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+
+        100% {
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg)
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div style="min-height: 90vh;">
+    <div class="jumbotron jumbotron-fluid text-center">
+        <div class="container">
+            <h1 class="display-4" style="color: #41c365;">Gracias por participar</h1>
+            <p class="lead">del cuestionario DTC</p>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="card my-auto" >
+            <div class="card-header" style="background-color: #41c365;"     >
+                <h1 class="card-title">
+                    @{{request.user}}
+                </h1>
+                <h4 class="card-subtitle mb-2 text-light">Tu puntaje es:</h4>
+            </div>
+            <div class="col-md-6">
+                <div class="progress green"> 
+                    {% if obj.total > 20 %}
+                    <span class="progress-left"> 
+                        <span class="progress-bar"></span> 
+                    </span>
+                    {% endif %}
+                    <span class="progress-right"> 
+                        <span class="progress-bar"></span> 
+                    </span>
+                    <div class="progress-value">{{obj.total}} <span style="font-size: 1rem;"> pts.</span></div>
+                </div>
+                <hr>
+                <a class="read_more bg mx-auto" style="width: 300px;" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Continuar</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

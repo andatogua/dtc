@@ -1,11 +1,13 @@
 from django.http import response
-from django.http.response import HttpResponseRedirect, JsonResponse
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .models import QuestionModel, ResponseModel
+from django.views.generic import ListView, CreateView, DetailView
+from .models import QuestionModel, ResponseModel, ResultModel
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.contrib import auth
+
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 class QuestionView(LoginRequiredMixin,ListView):
@@ -16,6 +18,7 @@ class QuestionView(LoginRequiredMixin,ListView):
     queryset = QuestionModel.objects.all()
 
     def post(self,request,*args,**kwargs):
+        total = 0
         data = request.POST
         for d in data:
             if d != 'csrfmiddlewaretoken':
@@ -27,5 +30,35 @@ class QuestionView(LoginRequiredMixin,ListView):
                     username = auth.get_user(request),
                     value = data[d]
                 )
-        return HttpResponseRedirect('/')
+                total += int(data[d])
+        ResultModel.objects.create(
+            username = auth.get_user(request),
+            total = total
+        )
+        return HttpResponseRedirect('/questions/result/')
+
+    def get(self,request,*args,**kwargs):
+        username = auth.get_user(request)
+        try:
+            obj = ResultModel.objects.get(username=username)
+            return HttpResponseRedirect('/questions/result/')
+
+        except ObjectDoesNotExist:
+            return render(request,self.template_name,{"obj":self.queryset})
+
         
+#def ResultView(request):
+#    return render(request,'questions/result.html')
+
+class ResultView(LoginRequiredMixin,ListView):
+    model = ResultModel
+    template_name = 'questions/result.html'
+    context_object_name = 'obj'
+    login_url = "/#why"
+
+    def get(self,request,*args,**kwargs):
+        username = auth.get_user(request)
+        queryset = ResultModel.objects.get(username=username)
+        deg = queryset.total - 20
+        print(queryset)
+        return render(request,self.template_name,{"obj":queryset,"deg":deg})

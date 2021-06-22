@@ -2,108 +2,176 @@
 
 {% block content %}
 <div class="container">
-<div class="jumbotron jumbotron-fluid" style="background-color: #41c365;">
+  <div class="jumbotron jumbotron-fluid" style="background-color: #41c365;">
     <div class="container">
-      <h1 class="display-4 text-light" >Bienvenido @{{request.user}}</h1>
-      <p>INSTRUCCIÓN: Para cada par de sentencias afirmativas, elija la que más le identifique. Si se identifica con ambas por igual, elija la que cree que es más importante.</p>
+      <h1 class="display-4 text-light">Bienvenido @{{request.user}}</h1>
+      <p>INSTRUCCIÓN: Para cada par de sentencias afirmativas, elija la que más le identifique. Si se identifica con
+        ambas por igual, elija la que cree que es más importante.</p>
     </div>
   </div>
 
-  <form method="POST" class="col-sm-12 col-lg-6 mx-auto">{% csrf_token %}
+  <form method="POST" class="col-sm-12 col-lg-6 mx-auto needs-validation" novalidate>{% csrf_token %}
 
     <div id="accordion">
       <div class="card">
         <div class="card-header" id="headingOne">
           <h5 class="mb-0">
-            <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+            <a class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+              aria-controls="collapseOne">
               Sección Uno
             </a>
           </h5>
         </div>
-    
+
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
           <div class="card-body">
             <div class="card">
               {% for o in obj %}
-              {% if o.question < 11 %}
-              <div class="pl-5 form-check">
-                <input class="form-check-input" required type="radio" name="{{o.question}}" id="exampleRadios{{o.id}}" value="{{o.value}}" checked>
+              {% if o.question < 11 %} <div class="pl-5 form-check">
+                <input class="form-check-input" required type="radio" name="{{o.question}}" id="exampleRadios{{o.id}}"
+                  value="{{o.value}}" >
                 <label class="form-check-label" for="exampleRadios{{o.id}}">
-                      {{o.answer}}
+                  {{o.answer}}
                 </label>
-              </div>
-              {% if o.id|divisibleby:"2" %}
-                <hr>
-              {% endif %}
-              {% endif %}
-              {% endfor %}
-              
+                <div class="invalid-feedback">
+                  Por favor selecciona una opción
+                </div>
             </div>
+            {% if o.id|divisibleby:"2" %}
+            <hr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
           </div>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Sección Dos
-            </a>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-          <div class="card-body">
-            <div class="card">
-              {% for o in obj %}
-              {% if o.question > 10 and o.question < 21 %}
-              <div class="pl-5 form-check">
-                <input class="form-check-input" required type="radio" name="{{o.question}}" id="exampleRadios{{o.id}}" value="{{o.value}}" checked>
-                <label class="form-check-label" for="exampleRadios{{o.id}}">
-                      {{o.answer}}
-                </label>
-              </div>
-              {% if o.id|divisibleby:"2" %}
-                <hr>
-              {% endif %}
-              {% endif %}
-              {% endfor %}
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Sección Tres
-            </a>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingFour">
-          <h5 class="mb-0">
-            <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-              Sección Cuatro
-            </a>
-          </h5>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-          </div>
-        </div>
-        <button type="submit" class="read_more btn bg mx-auto mb-5" href="#">Enviar</button>
       </div>
     </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+            aria-controls="collapseTwo">
+            Sección Dos
+          </a>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+          <div class="card">
+            {% for o in obj %}
+            {% if o.question > 10 and o.question < 21 %} <div class="pl-5 form-check">
+              <input class="form-check-input" required type="radio" name="{{o.question}}" id="exampleRadios{{o.id}}"
+                value="{{o.value}}" >
+              <label class="form-check-label" for="exampleRadios{{o.id}}">
+                {{o.answer}}
+              </label>
+              <div class="invalid-feedback">
+                Por favor selecciona una opción
+              </div>
+          </div>
+          {% if o.id|divisibleby:"2" %}
+          <hr>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
 
-      
-  </form>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="card">
+  <div class="card-header" id="headingTwo">
+    <h5 class="mb-0">
+      <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+        aria-controls="collapseThree">
+        Sección Tres
+      </a>
+    </h5>
+  </div>
+  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+    <div class="card-body">
+      <div class="card">
+        {% for o in obj %}
+        {% if o.question > 20 and o.question < 31 %} <div class="pl-5 form-check">
+          <input class="form-check-input" required type="radio" name="{{o.question}}" id="exampleRadios{{o.id}}"
+            value="{{o.value}}" >
+          <label class="form-check-label" for="exampleRadios{{o.id}}">
+            {{o.answer}}
+          </label>
+          <div class="invalid-feedback">
+            Por favor selecciona una opción
+          </div>
+      </div>
+      {% if o.id|divisibleby:"2" %}
+      <hr>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+</div>
+<div class="card">
+  <div class="card-header" id="headingFour">
+    <h5 class="mb-0">
+      <a class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+        aria-controls="collapseFour">
+        Sección Cuatro
+      </a>
+    </h5>
+  </div>
+  <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+    <div class="card-body">
+      <div class="card">
+        {% for o in obj %}
+        {% if o.question > 30 %}
+        <div class="pl-5 form-check">
+          <input class="form-check-input" required type="radio" name="{{o.question}}" id="exampleRadios{{o.id}}"
+            value="{{o.value}}" >
+          <label class="form-check-label" for="exampleRadios{{o.id}}">
+            {{o.answer}}
+          </label>
+          <div class="invalid-feedback">
+            Por favor selecciona una opción
+          </div>
+        </div>
+        {% if o.id|divisibleby:"2" %}
+        <hr>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="read_more btn bg mx-auto mb-5" href="#"><i class="fa fa-arrow-circle-right"
+      aria-hidden="true"></i> Enviar</button>
+</div>
 </div>
 
+
+</form>
+</div>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+  </script>
 {% endblock content %}
