@@ -96,7 +96,7 @@
     .progress.green .progress-bar {
         border-color: #41c365
     }
-    
+
     .progress.green .progress-left .progress-bar {
         animation: loading-2 1.5s linear forwards 3s
     }
@@ -120,12 +120,16 @@
         }
 
         100% {
-            {% if deg < 0 %}
-            -webkit-transform: rotate({% widthratio deg|add:20 20 180 %}deg);
-            transform: rotate({% widthratio deg|add:20 20 180 %}deg)
+                {% if deg < 0 %}
+
+            -webkit-transform: rotate( {% widthratio deg|add:20 20 180 %}deg);
+
+            transform: rotate( {% widthratio deg|add:20 20 180 %}deg) 
             {% else %}
+
             -webkit-transform: rotate(180deg);
-            transform: rotate(180deg)
+
+            transform: rotate(180deg) 
             {% endif %}
         }
     }
@@ -137,8 +141,9 @@
         }
 
         100% {
-            -webkit-transform: rotate({% widthratio deg 20 180 %}deg);
-            transform: rotate({% widthratio deg 20 180 %}deg)
+            -webkit-transform: rotate( {% widthratio deg 20 180 %}deg);
+
+            transform: rotate( {% widthratio deg 20 180 %}deg)
         }
     }
 
@@ -157,36 +162,126 @@
 {% endblock %}
 {% block content %}
 <div style="min-height: 90vh;">
-    <div class="jumbotron jumbotron-fluid text-center">
+    <div class="jumbotron jumbotron-fluid text-center" style="border-bottom: 0;">
         <div class="container">
             <h1 class="display-4" style="color: #41c365;">Gracias por participar</h1>
-            <p class="lead">del cuestionario DTC</p>
         </div>
     </div>
     <div class="row d-flex justify-content-center">
-        <div class="card my-auto" >
-            <div class="card-header" style="background-color: #41c365;"     >
+        <div class="card my-auto" style="max-width: 320px;">
+            <div class="card-header" style="background-color: #41c365;">
                 <h1 class="card-title">
                     @{{request.user}}
                 </h1>
                 <h4 class="card-subtitle mb-2 text-light">Tu puntaje es:</h4>
             </div>
-            <div class="col-md-6">
-                <div class="progress green"> 
+            <div class="mx-auto">
+                <div class="progress green">
                     {% if obj.total > 20 %}
-                    <span class="progress-left"> 
-                        <span class="progress-bar"></span> 
+                    <span class="progress-left">
+                        <span class="progress-bar"></span>
                     </span>
                     {% endif %}
-                    <span class="progress-right"> 
-                        <span class="progress-bar"></span> 
+                    <span class="progress-right">
+                        <span class="progress-bar"></span>
                     </span>
                     <div class="progress-value">{{obj.total}} <span style="font-size: 1rem;"> pts.</span></div>
                 </div>
                 <hr>
-                <a class="read_more bg mx-auto" style="width: 300px;" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Continuar</a>
+            </div>
+            <div>
+                {% if obj.total > 15 %}
+                <h4>Ud está por encima del valor de la media, lo que representa un mayor nivel de rasgos
+                    narcisistas.
+                </h4>
+                {% else %}
+                <h4>Ud está por debajo del valor de la media, lo que representa un menor nivel de rasgos
+                    narcisistas.
+                </h4>
+                {% endif %}
             </div>
         </div>
+        <div div class="chart-container col-md-6" >
+            <canvas  id="myChart"></canvas>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <a class="read_more bg mx-auto" style="width: 300px;" href="{% url 'logout' %}"><i class="fa fa-sign-out"
+                aria-hidden="true"></i> Continuar</a>
     </div>
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = [
+        'Autoritarismo',
+        'Exhibicionismo',
+        'Superioridad',
+        'Pretensión',
+        'Egoísmo',
+        'Autosuficiencia',
+        'Vanidad'
+    ];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label:'',
+            backgroundColor: [
+      'rgba(255, 99, 132, 0.5)',
+      'rgba(255, 159, 64, 0.5)',
+      'rgba(255, 205, 86, 0.5)',
+      'rgba(75, 192, 192, 0.5)',
+      'rgba(54, 162, 235, 0.5)',
+      'rgba(201, 23, 127, 0.5)',
+      '#41c365aa'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(201, 23, 127)',
+      '#41c365'
+    ],
+            data: [
+                {{ obj.authoritarianism }},
+                {{ obj.exhibitionism }},
+                {{ obj.superiority }},
+                {{ obj.claim }},
+                {{ obj.unscrupulous }},
+                {{ obj.selfsufficiency }},
+                {{ obj.vanity }}
+            ],
+
+        }]
+    };
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            responsive: true,
+            animation:{
+                duration: 4000,
+                easing: "easeInCubic"
+            },
+            plugins: {
+            title: {
+                display: true,
+                text: 'Distribución según Escalas NPI'
+            },
+            legend: {
+                display: false
+            }
+        }
+            
+        }
+    };
+
+    var myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
 {% endblock %}

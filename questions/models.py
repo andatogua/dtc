@@ -30,6 +30,25 @@ class ResultModel(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
     total = models.IntegerField()
+    authoritarianism = models.PositiveIntegerField()
+    exhibitionism = models.PositiveIntegerField()
+    superiority = models.PositiveIntegerField()
+    claim = models.PositiveIntegerField()
+    unscrupulous = models.PositiveIntegerField()
+    selfsufficiency = models.PositiveIntegerField()
+    vanity = models.IntegerField()
+    feature = models.CharField(
+        max_length=20, null=True,
+        choices=[
+            ("authoritarianism","authoritarianism"),
+            ("exhibitionism","exhibitionism"),
+            ("superiority","superiority"),
+            ("claim","claim"),
+            ("unscrupulous","unscrupulous"),
+            ("selfsufficiency","selfsufficiency"),
+            ("vanity","vanity"),
+        ]
+        )
 
     def __str__(self) -> str:
         return str(self.username)

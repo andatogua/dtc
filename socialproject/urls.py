@@ -20,6 +20,12 @@ from django.contrib.auth.views import LogoutView
 
 from core import views
 
+
+from django.contrib import admin 
+admin.site.site_header = "NPI Administrator"
+admin.site.site_title = "NPI Administrator"
+admin.site.index_title = "NPI Administrator"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),

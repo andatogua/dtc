@@ -1,0 +1,79 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<div style="min-height: 90vh;">
+    <div class="jumbotron jumbotron-fluid text-center" style="border-bottom: 0;">
+        <div class="container">
+            <h1 class="display-4" style="color: #41c365;">Reporte General</h1>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center m-0">
+        
+        <div div class="chart-container col-md-6" >
+            <canvas  id="myChart"></canvas>
+        </div>
+    </div>
+    <div class="row justify-content-center m-0">
+        <a class="read_more bg mx-auto" style="width: 300px;" href="/admin"><i class="fa fa-sign-out"
+                aria-hidden="true"></i> Continuar</a>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const labels = {{labels|safe|title}}
+    const data = {
+        labels: labels,
+        datasets: [{
+            label:'',
+            backgroundColor: [
+      'rgba(255, 99, 132, 0.5)',
+      'rgba(255, 159, 64, 0.5)',
+      'rgba(255, 205, 86, 0.5)',
+      'rgba(75, 192, 192, 0.5)',
+      'rgba(54, 162, 235, 0.5)',
+      'rgba(201, 23, 127, 0.5)',
+      '#41c365aa'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(201, 23, 127)',
+      '#41c365'
+    ],
+            data: {{data|safe}},
+
+        }]
+    };
+    const config = {
+        type: 'bar',
+        data,
+        options: {
+            responsive: true,
+            animation:{
+                duration: 4000,
+                easing: "easeInCubic"
+            },
+            plugins: {
+            title: {
+                display: true,
+                text: 'Total de personas encuestadas: {{total}}'
+            },
+            legend: {
+                display: false
+            }
+        }
+            
+        }
+    };
+
+    var myChart = new Chart(
+        document.getElementById('myChart'),
+        config
+    );
+</script>
+{% endblock %}

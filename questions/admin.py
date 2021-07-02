@@ -9,7 +9,7 @@ class ResponseAdmin(admin.ModelAdmin):
     list_display=["question","username","value"]
 
 class ResultAdmin(admin.ModelAdmin):
-    list_display=["username","date","total"]
+    list_display=["username","date","total", "authoritarianism", "exhibitionism", "superiority", "claim", "unscrupulous", "selfsufficiency", "vanity","feature"]
 
 admin.site.register(QuestionModel,QuestionAdmin)
 admin.site.register(ResponseModel,ResponseAdmin)
